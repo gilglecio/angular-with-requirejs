@@ -1,40 +1,35 @@
-define('app/config', [], function() {
+define('app/config',[], function() {
 
+	'use strict';
 
-    function config($routeProvider) {
-        $routeProvider.when('/home', {
-                templateUrl: 'templates/home.html',
-                controller: 'ideasHomeController'
-            })
-            .when('/details/:id', {
-                templateUrl: 'templates/ideaDetails.html',
-                controller: 'ideaDetailsController'
-            })
-            .otherwise({
-                redirectTo: '/home'
-            });
-    }
+	function config($routeProvider) {
 
-    config.$inject = ['$routeProvider'];
+		$routeProvider
+			.when('/home', {
+				templateUrl: 'templates/home.html',
+				controller: 'ideasHomeController'
+			})
+			.when('/details/:id', {
+				templateUrl: 'templates/ideaDetails.html',
+				controller: 'ideaDetailsController'
+			})
+			.otherwise({
+				redirectTo: '/home'
+			});
+	}
 
-    return config;
+	config.$inject = ['$routeProvider'];
+
+	return config;
 });
-define('app/ideasDataSvc', [], function(app) {
-
+define('app/ideasDataSvc',[], function(app) {
+    'use strict';
 
     function factoryFunc($http, $resource) {
-        var Ideas;
 
-        Ideas = $resource('/api/ideas/:id', {
+        var Ideas = $resource('/api/ideas/:id', {
             id: '@id'
         });
-
-        var svc = {
-            allIdeas: allIdeas,
-            ideaDetails: ideaDetails
-        };
-
-        return svc;
 
         function allIdeas() {
             return Ideas.query().$promise;
@@ -45,17 +40,23 @@ define('app/ideasDataSvc', [], function(app) {
                 id: id
             }).$promise;
         }
+
+        return {
+            allIdeas: allIdeas,
+            ideaDetails: ideaDetails
+        };
     }
 
     factoryFunc.$inject = ['$http', '$resource'];
 
     return factoryFunc;
 });
+define('app/ideasHomeController',[], function() {
 
-define('app/ideasHomeController', [], function() {
-
+    'use strict';
 
     function ideasHomeController($scope, ideasDataSvc) {
+
         $scope.ideaName = "Todo List";
 
         $scope.gridOptions = {
@@ -93,28 +94,31 @@ define('app/ideasHomeController', [], function() {
 
     return ideasHomeController;
 });
-define('app/ideaDetailsController', [], function(app) {
+define('app/ideaDetailsController',[], function(app) {
 
+	'use strict';
 
-    function ideaDetailsController($scope, $routeParams, ideasDataSvc) {
-        ideasDataSvc.ideaDetails($routeParams.id)
-            .then(function(result) {
-                $scope.ideaDetails = result;
-            });
-    }
+	function ideaDetailsController($scope, $routeParams, ideasDataSvc) {
 
-    ideaDetailsController.$inject = ['$scope', '$routeParams', 'ideasDataSvc'];
+		ideasDataSvc.ideaDetails($routeParams.id).then(function(result) {
+			$scope.ideaDetails = result;
+		});
+	}
 
-    return ideaDetailsController;
+	ideaDetailsController.$inject = ['$scope', '$routeParams', 'ideasDataSvc'];
+
+	return ideaDetailsController;
 });
-
-define('app/ideasModule', ['app/config',
+define('app/ideasModule',[
+        'app/config',
         'app/ideasDataSvc',
         'app/ideasHomeController',
         'app/ideaDetailsController'
     ],
+
     function(config, ideasDataSvc, ideasHomeController, ideaDetailsController) {
 
+        'use strict';
 
         var app = angular.module('ideasApp', ['ngRoute', 'ngResource', 'ngGrid']);
 
@@ -123,11 +127,14 @@ define('app/ideasModule', ['app/config',
         app.controller('ideasHomeController', ideasHomeController);
         app.controller('ideaDetailsController', ideaDetailsController);
     });
-require(['app/ideasModule'],
-    function() {
+require([
+		'app/ideasModule'
+	],
+	function() {
+		'use strict';
 
-
-        angular.bootstrap(document, ['ideasApp']);
-    }
+		angular.bootstrap(document, ['ideasApp']);
+	}
 );
-define("main", function() {});
+define("main", function(){});
+
