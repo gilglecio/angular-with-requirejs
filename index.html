@@ -4,18 +4,24 @@
         <meta charset="UTF-8">
         <title>Home</title>
 
+        <!-- build:css main.min.css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
         <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css"/>
         <link rel="stylesheet" href="styles/site.css"/>
+        <!-- endbuild -->
     </head>
     
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:darkseagreen;">
+        <div class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="#" class="navbar-brand" style="color:#FFC;">
-                        Build Great Apps
-                    </a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">AngularJS and Require JS</a>
                 </div>
             </div>
         </div>
@@ -36,14 +42,16 @@
             </div>
         </section>
 
+        <!-- build:js scripts.min.js -->
         <script src="bower_components/requirejs/require.js"></script>
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/ng-grid/build/ng-grid.debug.js"></script>
-
         <script src="app/requirejs/appIdeas-combined.js"></script>
+        <!-- endbuild -->
+        
         <script>
             (function(){
                 require(['main', function(){

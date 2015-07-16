@@ -7,7 +7,7 @@ var port = process.env.port || 3000;
 
 var app = express();
 app.use(bodyParser());
-app.use(express.static('.'));
+app.use(express.static('dist'));
 
 app.get('/', function(request, response) {
 	response.sendfile("index.html");

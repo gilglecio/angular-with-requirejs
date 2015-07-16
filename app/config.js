@@ -6,11 +6,11 @@ define([], function() {
 
 		$routeProvider
 			.when('/home', {
-				templateUrl: 'templates/home.html',
+				templateUrl: 'views/home.html',
 				controller: 'ideasHomeController'
 			})
 			.when('/details/:id', {
-				templateUrl: 'templates/ideaDetails.html',
+				templateUrl: 'views/ideaDetails.html',
 				controller: 'ideaDetailsController'
 			})
 			.otherwise({
